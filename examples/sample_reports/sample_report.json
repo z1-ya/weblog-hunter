@@ -1,0 +1,483 @@
+{
+  "summary": {
+    "files_read": 1,
+    "parsed_events": 14,
+    "parse_failures": 6,
+    "top_suspicious_ips": [
+      "10.0.0.1",
+      "192.168.1.102",
+      "192.168.1.104",
+      "192.168.1.103",
+      "192.168.1.100",
+      "203.0.113.50"
+    ],
+    "tools_by_first_seen": [
+      [
+        "browser",
+        "2026-01-17T10:00:00+00:00"
+      ],
+      [
+        "curl",
+        "2026-01-17T10:00:25+00:00"
+      ],
+      [
+        "python-requests",
+        "2026-01-17T10:00:45+00:00"
+      ]
+    ],
+    "top_sqli_endpoints": [],
+    "inferred_scrape_section": "/api/users"
+  },
+  "top_ips_detail": [
+    {
+      "ip": "10.0.0.1",
+      "request_count": 4,
+      "score": 0.188,
+      "status_codes": {
+        "200": 1,
+        "401": 3
+      },
+      "abnormal_count": 0,
+      "login_attempts": 3,
+      "identity_queries": 1,
+      "max_requests_per_minute": 4,
+      "top_paths": [
+        [
+          "/login",
+          3
+        ],
+        [
+          "/api/users",
+          1
+        ]
+      ],
+      "abnormal_examples": [],
+      "tools_used": [
+        "browser"
+      ]
+    },
+    {
+      "ip": "192.168.1.102",
+      "request_count": 2,
+      "score": 0.154,
+      "status_codes": {
+        "404": 1,
+        "500": 1
+      },
+      "abnormal_count": 2,
+      "login_attempts": 0,
+      "identity_queries": 0,
+      "max_requests_per_minute": 2,
+      "top_paths": [
+        [
+          "/../../etc/passwd",
+          1
+        ],
+        [
+          "/index.php",
+          1
+        ]
+      ],
+      "abnormal_examples": [
+        {
+          "ip": "192.168.1.102",
+          "timestamp": "2026-01-17T10:00:25+00:00",
+          "method": "GET",
+          "url": "/../../etc/passwd",
+          "path": "/../../etc/passwd",
+          "query": "",
+          "status": 404,
+          "bytes": 123,
+          "user_agent": "curl/7.68.0",
+          "referer": "-",
+          "tool": "curl",
+          "abnormal": [
+            "Traversal/LFI"
+          ]
+        },
+        {
+          "ip": "192.168.1.102",
+          "timestamp": "2026-01-17T10:00:30+00:00",
+          "method": "GET",
+          "url": "/index.php?file=../../../etc/passwd",
+          "path": "/index.php",
+          "query": "file=../../../etc/passwd",
+          "status": 500,
+          "bytes": 456,
+          "user_agent": "curl/7.68.0",
+          "referer": "-",
+          "tool": "curl",
+          "abnormal": [
+            "Traversal/LFI"
+          ]
+        }
+      ],
+      "tools_used": [
+        "curl"
+      ]
+    },
+    {
+      "ip": "192.168.1.104",
+      "request_count": 2,
+      "score": 0.12400000000000001,
+      "status_codes": {
+        "200": 2
+      },
+      "abnormal_count": 2,
+      "login_attempts": 0,
+      "identity_queries": 0,
+      "max_requests_per_minute": 2,
+      "top_paths": [
+        [
+          "/proxy.php",
+          1
+        ],
+        [
+          "/fetch.php",
+          1
+        ]
+      ],
+      "abnormal_examples": [
+        {
+          "ip": "192.168.1.104",
+          "timestamp": "2026-01-17T10:00:45+00:00",
+          "method": "GET",
+          "url": "/proxy.php?url=http://169.254.169.254/latest/meta-data/",
+          "path": "/proxy.php",
+          "query": "url=http://169.254.169.254/latest/meta-data/",
+          "status": 200,
+          "bytes": 567,
+          "user_agent": "python-requests/2.25.1",
+          "referer": "-",
+          "tool": "python-requests",
+          "abnormal": [
+            "SSRF"
+          ]
+        },
+        {
+          "ip": "192.168.1.104",
+          "timestamp": "2026-01-17T10:00:50+00:00",
+          "method": "GET",
+          "url": "/fetch.php?url=http://localhost:8080/admin",
+          "path": "/fetch.php",
+          "query": "url=http://localhost:8080/admin",
+          "status": 200,
+          "bytes": 890,
+          "user_agent": "python-requests/2.25.1",
+          "referer": "-",
+          "tool": "python-requests",
+          "abnormal": [
+            "SSRF"
+          ]
+        }
+      ],
+      "tools_used": [
+        "python-requests"
+      ]
+    },
+    {
+      "ip": "192.168.1.103",
+      "request_count": 1,
+      "score": 0.062000000000000006,
+      "status_codes": {
+        "200": 1
+      },
+      "abnormal_count": 1,
+      "login_attempts": 0,
+      "identity_queries": 0,
+      "max_requests_per_minute": 1,
+      "top_paths": [
+        [
+          "/search.php",
+          1
+        ]
+      ],
+      "abnormal_examples": [
+        {
+          "ip": "192.168.1.103",
+          "timestamp": "2026-01-17T10:00:35+00:00",
+          "method": "GET",
+          "url": "/search.php?q=<script>alert(1)</script>",
+          "path": "/search.php",
+          "query": "q=<script>alert(1)</script>",
+          "status": 200,
+          "bytes": 789,
+          "user_agent": "Mozilla/5.0",
+          "referer": "-",
+          "tool": "browser",
+          "abnormal": [
+            "XSS"
+          ]
+        }
+      ],
+      "tools_used": [
+        "browser"
+      ]
+    },
+    {
+      "ip": "192.168.1.100",
+      "request_count": 2,
+      "score": 0.054000000000000006,
+      "status_codes": {
+        "200": 2
+      },
+      "abnormal_count": 0,
+      "login_attempts": 1,
+      "identity_queries": 0,
+      "max_requests_per_minute": 2,
+      "top_paths": [
+        [
+          "/index.php",
+          1
+        ],
+        [
+          "/login.php",
+          1
+        ]
+      ],
+      "abnormal_examples": [],
+      "tools_used": [
+        "browser"
+      ]
+    },
+    {
+      "ip": "203.0.113.50",
+      "request_count": 3,
+      "score": 0.036,
+      "status_codes": {
+        "200": 3
+      },
+      "abnormal_count": 0,
+      "login_attempts": 0,
+      "identity_queries": 0,
+      "max_requests_per_minute": 3,
+      "top_paths": [
+        [
+          "/",
+          1
+        ],
+        [
+          "/about.html",
+          1
+        ],
+        [
+          "/contact.html",
+          1
+        ]
+      ],
+      "abnormal_examples": [],
+      "tools_used": [
+        "browser"
+      ]
+    }
+  ],
+  "vulnerable_endpoints": [],
+  "events": [
+    {
+      "ip": "192.168.1.100",
+      "timestamp": "2026-01-17T10:00:00+00:00",
+      "method": "GET",
+      "url": "/index.php",
+      "path": "/index.php",
+      "query": "",
+      "status": 200,
+      "bytes": 1234,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/96.0",
+      "referer": "-",
+      "tool": "browser",
+      "abnormal": []
+    },
+    {
+      "ip": "192.168.1.100",
+      "timestamp": "2026-01-17T10:00:05+00:00",
+      "method": "GET",
+      "url": "/login.php",
+      "path": "/login.php",
+      "query": "",
+      "status": 200,
+      "bytes": 456,
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/96.0",
+      "referer": "-",
+      "tool": "browser",
+      "abnormal": []
+    },
+    {
+      "ip": "192.168.1.102",
+      "timestamp": "2026-01-17T10:00:25+00:00",
+      "method": "GET",
+      "url": "/../../etc/passwd",
+      "path": "/../../etc/passwd",
+      "query": "",
+      "status": 404,
+      "bytes": 123,
+      "user_agent": "curl/7.68.0",
+      "referer": "-",
+      "tool": "curl",
+      "abnormal": [
+        "Traversal/LFI"
+      ]
+    },
+    {
+      "ip": "192.168.1.102",
+      "timestamp": "2026-01-17T10:00:30+00:00",
+      "method": "GET",
+      "url": "/index.php?file=../../../etc/passwd",
+      "path": "/index.php",
+      "query": "file=../../../etc/passwd",
+      "status": 500,
+      "bytes": 456,
+      "user_agent": "curl/7.68.0",
+      "referer": "-",
+      "tool": "curl",
+      "abnormal": [
+        "Traversal/LFI"
+      ]
+    },
+    {
+      "ip": "192.168.1.103",
+      "timestamp": "2026-01-17T10:00:35+00:00",
+      "method": "GET",
+      "url": "/search.php?q=<script>alert(1)</script>",
+      "path": "/search.php",
+      "query": "q=<script>alert(1)</script>",
+      "status": 200,
+      "bytes": 789,
+      "user_agent": "Mozilla/5.0",
+      "referer": "-",
+      "tool": "browser",
+      "abnormal": [
+        "XSS"
+      ]
+    },
+    {
+      "ip": "192.168.1.104",
+      "timestamp": "2026-01-17T10:00:45+00:00",
+      "method": "GET",
+      "url": "/proxy.php?url=http://169.254.169.254/latest/meta-data/",
+      "path": "/proxy.php",
+      "query": "url=http://169.254.169.254/latest/meta-data/",
+      "status": 200,
+      "bytes": 567,
+      "user_agent": "python-requests/2.25.1",
+      "referer": "-",
+      "tool": "python-requests",
+      "abnormal": [
+        "SSRF"
+      ]
+    },
+    {
+      "ip": "192.168.1.104",
+      "timestamp": "2026-01-17T10:00:50+00:00",
+      "method": "GET",
+      "url": "/fetch.php?url=http://localhost:8080/admin",
+      "path": "/fetch.php",
+      "query": "url=http://localhost:8080/admin",
+      "status": 200,
+      "bytes": 890,
+      "user_agent": "python-requests/2.25.1",
+      "referer": "-",
+      "tool": "python-requests",
+      "abnormal": [
+        "SSRF"
+      ]
+    },
+    {
+      "ip": "10.0.0.1",
+      "timestamp": "2026-01-17T10:01:05+00:00",
+      "method": "GET",
+      "url": "/api/users",
+      "path": "/api/users",
+      "query": "",
+      "status": 200,
+      "bytes": 5678,
+      "user_agent": "Mozilla/5.0",
+      "referer": "-",
+      "tool": "browser",
+      "abnormal": []
+    },
+    {
+      "ip": "10.0.0.1",
+      "timestamp": "2026-01-17T10:01:10+00:00",
+      "method": "POST",
+      "url": "/login",
+      "path": "/login",
+      "query": "",
+      "status": 401,
+      "bytes": 234,
+      "user_agent": "Mozilla/5.0",
+      "referer": "-",
+      "tool": "browser",
+      "abnormal": []
+    },
+    {
+      "ip": "10.0.0.1",
+      "timestamp": "2026-01-17T10:01:15+00:00",
+      "method": "POST",
+      "url": "/login",
+      "path": "/login",
+      "query": "",
+      "status": 401,
+      "bytes": 234,
+      "user_agent": "Mozilla/5.0",
+      "referer": "-",
+      "tool": "browser",
+      "abnormal": []
+    },
+    {
+      "ip": "10.0.0.1",
+      "timestamp": "2026-01-17T10:01:20+00:00",
+      "method": "POST",
+      "url": "/login",
+      "path": "/login",
+      "query": "",
+      "status": 401,
+      "bytes": 234,
+      "user_agent": "Mozilla/5.0",
+      "referer": "-",
+      "tool": "browser",
+      "abnormal": []
+    },
+    {
+      "ip": "203.0.113.50",
+      "timestamp": "2026-01-17T10:01:25+00:00",
+      "method": "GET",
+      "url": "/",
+      "path": "/",
+      "query": "",
+      "status": 200,
+      "bytes": 1234,
+      "user_agent": "Mozilla/5.0",
+      "referer": "-",
+      "tool": "browser",
+      "abnormal": []
+    },
+    {
+      "ip": "203.0.113.50",
+      "timestamp": "2026-01-17T10:01:30+00:00",
+      "method": "GET",
+      "url": "/about.html",
+      "path": "/about.html",
+      "query": "",
+      "status": 200,
+      "bytes": 567,
+      "user_agent": "Mozilla/5.0",
+      "referer": "-",
+      "tool": "browser",
+      "abnormal": []
+    },
+    {
+      "ip": "203.0.113.50",
+      "timestamp": "2026-01-17T10:01:35+00:00",
+      "method": "GET",
+      "url": "/contact.html",
+      "path": "/contact.html",
+      "query": "",
+      "status": 200,
+      "bytes": 890,
+      "user_agent": "Mozilla/5.0",
+      "referer": "-",
+      "tool": "browser",
+      "abnormal": []
+    }
+  ]
+}
