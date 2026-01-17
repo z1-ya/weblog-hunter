@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  weblog-hunter:
+    build: .
+    image: weblog-hunter:latest
+    volumes:
+      - ./logs:/logs:ro          # Mount your log directory (read-only)
+      - ./reports:/reports       # Mount reports output directory
+    command: --input /logs --format all --out /reports/report.md --top 20
+    environment:
+      - TZ=UTC
+    
+  # Example: Run analysis on schedule
+  weblog-hunter-cron:
+    build: .
+    image: weblog-hunter:latest
+    volumes:
+      - ./logs:/logs:ro
+      - ./reports:/reports
+      - ./crontab:/etc/cron.d/weblog-hunter-cron:ro
+    command: cron -f
+    environment:
+      - TZ=UTC
+
+# Example usage:
+#
+# Build and run once:
+#   docker-compose run --rm weblog-hunter --input /logs --out /reports/report.md
+#
+# Interactive mode:
+#   docker-compose run --rm weblog-hunter --input /logs --format html
+#
+# Run with custom options:
+#   docker-compose run --rm weblog-hunter --input /logs --top 50 --min-req 100
