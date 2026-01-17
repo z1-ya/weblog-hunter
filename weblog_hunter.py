@@ -16,11 +16,11 @@ Or run directly:
 import sys
 import warnings
 
-# Warn users about the deprecated interface
+# Use FutureWarning to ensure users see the migration message
 warnings.warn(
     "Running weblog_hunter.py directly is deprecated. "
     "Please use 'python -m weblog_hunter' or 'weblog-hunter' instead.",
-    DeprecationWarning,
+    FutureWarning,
     stacklevel=2
 )
 

@@ -8,7 +8,7 @@ import os
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Iterator, Optional, List
+from typing import Iterator, Optional, List, Tuple
 from urllib.parse import urlsplit, unquote
 
 from weblog_hunter.models import LogEntry
@@ -117,7 +117,7 @@ class LogParser:
             return gzip.open(filepath, "rt", errors="replace")
         return open(filepath, "rt", errors="replace")
     
-    def parse_file(self, filepath: str) -> tuple[List[LogEntry], int]:
+    def parse_file(self, filepath: str) -> Tuple[List[LogEntry], int]:
         """
         Parse a log file
         
@@ -165,7 +165,7 @@ class LogParser:
         else:
             yield input_path
     
-    def parse_logs(self, input_path: str, show_progress: bool = False) -> tuple[List[LogEntry], int, int]:
+    def parse_logs(self, input_path: str, show_progress: bool = False) -> Tuple[List[LogEntry], int, int]:
         """
         Parse all logs from input path
         

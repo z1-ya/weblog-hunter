@@ -38,12 +38,12 @@ CMDI_PATTERNS = re.compile(
 # Remote Code Execution (RCE) patterns
 RCE_PATTERNS = re.compile(
     r"(?i)(eval\(|exec\(|system\(|passthru\(|shell_exec\(|phpinfo\(|"
-    r"assert\(|preg_replace.*\/e|create_function\()"
+    r"assert\(|preg_replace\s*\(.*\/e[\"']?\s*,|create_function\()"
 )
 
 # XML External Entity (XXE) patterns
 XXE_PATTERNS = re.compile(
-    r"(?i)(<!ENTITY|<!DOCTYPE|SYSTEM\s+[\"']file:|SYSTEM\s+[\"']http)"
+    r"(?i)(<!ENTITY\s+\w+\s+SYSTEM|<!DOCTYPE.*ENTITY|SYSTEM\s+[\"']file:|SYSTEM\s+[\"']http)"
 )
 
 # LDAP Injection patterns
