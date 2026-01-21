@@ -1,0 +1,105 @@
+# Git Attributes for weblog-hunter
+# See https://git-scm.com/docs/gitattributes
+
+# Auto-detect text files and normalize line endings to LF
+* text=auto eol=lf
+
+# Source code
+*.py text eol=lf diff=python
+*.pyi text eol=lf diff=python
+*.pyx text eol=lf diff=python
+
+# Scripts
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Configuration files
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.cfg text eol=lf
+*.conf text eol=lf
+*.json text eol=lf
+.editorconfig text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+
+# Documentation
+*.md text eol=lf diff=markdown
+*.rst text eol=lf
+*.txt text eol=lf
+LICENSE text eol=lf
+AUTHORS text eol=lf
+CHANGELOG* text eol=lf
+CONTRIBUTING* text eol=lf
+SECURITY* text eol=lf
+
+# Docker
+Dockerfile* text eol=lf
+*.dockerignore text eol=lf
+docker-compose*.yml text eol=lf
+
+# Web files (if any HTML templates)
+*.html text eol=lf diff=html
+*.css text eol=lf
+*.js text eol=lf
+
+# Log files (treat as binary to avoid EOL conversion, but mark as non-diff)
+*.log binary
+*.log.gz binary -diff
+
+# Binary files
+*.db binary
+*.p binary
+*.pkl binary
+*.pickle binary
+*.pyc binary export-ignore
+*.pyo binary export-ignore
+*.pyd binary
+
+# Archives
+*.zip binary
+*.tar binary
+*.gz binary
+*.tgz binary
+*.bz2 binary
+*.7z binary
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg text
+
+# Fonts
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+
+# Exclude files from archives
+.gitattributes export-ignore
+.gitignore export-ignore
+.github/ export-ignore
+.pre-commit-config.yaml export-ignore
+tests/ export-ignore
+*.pyc export-ignore
+__pycache__/ export-ignore
+*.egg-info/ export-ignore
+.pytest_cache/ export-ignore
+.mypy_cache/ export-ignore
+.ruff_cache/ export-ignore
+htmlcov/ export-ignore
+.coverage export-ignore
+coverage.xml export-ignore
+
+# Language statistics (for GitHub linguist)
+*.md linguist-documentation
+docs/* linguist-documentation
+examples/* linguist-vendored
+tests/fixtures/* linguist-vendored
+*.log linguist-vendored
