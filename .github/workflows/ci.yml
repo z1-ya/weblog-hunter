@@ -5,6 +5,7 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
+  workflow_dispatch:
 
 jobs:
   test:
@@ -39,7 +40,28 @@ jobs:
           fail_ci_if_error: false
   
   lint:
-    name: Lint and Format Check
+    name: Lint
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      
+      - name: Lint with ruff
+        run: |
+          ruff check weblog_hunter/ tests/
+  
+  format:
+    name: Format Check
     runs-on: ubuntu-latest
     
     steps:
@@ -58,10 +80,27 @@ jobs:
       - name: Check code formatting with black
         run: |
           black --check weblog_hunter/ tests/
+  
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
       
-      - name: Lint with ruff
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      
+      - name: Install dependencies
         run: |
-          ruff check weblog_hunter/ tests/
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      
+      - name: Type check with mypy
+        run: |
+          mypy weblog_hunter/
   
   integration:
     name: Integration Tests

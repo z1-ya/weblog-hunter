@@ -46,9 +46,9 @@ threat-intel = ["requests>=2.28.0"]
 weblog-hunter = "weblog_hunter.__main__:main"
 
 [project.urls]
-Homepage = "https://github.com/z1-ya/weblog-hunter"
-Repository = "https://github.com/z1-ya/weblog-hunter"
-Issues = "https://github.com/z1-ya/weblog-hunter/issues"
+Homepage = "https://github.com/shalbuzov/weblog-hunter"
+Repository = "https://github.com/shalbuzov/weblog-hunter"
+Issues = "https://github.com/shalbuzov/weblog-hunter/issues"
 
 [tool.setuptools]
 packages = ["weblog_hunter", "weblog_hunter.reporters"]
