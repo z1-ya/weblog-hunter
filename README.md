@@ -1,8 +1,10 @@
 # weblog-hunter 🎯
 
+[![CI](https://github.com/shalbuzov/weblog-hunter/workflows/CI/badge.svg)](https://github.com/shalbuzov/weblog-hunter/actions)
+[![codecov](https://codecov.io/gh/shalbuzov/weblog-hunter/branch/main/graph/badge.svg)](https://codecov.io/gh/shalbuzov/weblog-hunter)
 [![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-55%20passing-brightgreen.svg)]()
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 Professional automated web log reconnaissance and threat hunting tool. Detects attacker behavior, exploited endpoints, SQL injection, scraping activity, and attacker tooling from Apache/Nginx access logs with zero manual analysis.
 
@@ -25,7 +27,7 @@ Professional automated web log reconnaissance and threat hunting tool. Detects a
 
 ```bash
 # Install from source
-git clone https://github.com/z1-ya/weblog-hunter.git
+git clone https://github.com/shalbuzov/weblog-hunter.git
 cd weblog-hunter
 pip install -e .
 
@@ -283,7 +285,7 @@ Contributions are welcome! Please see [CONTRIBUTING.md](docs/contributing.md) fo
 
 ```bash
 # Clone repository
-git clone https://github.com/z1-ya/weblog-hunter.git
+git clone https://github.com/shalbuzov/weblog-hunter.git
 cd weblog-hunter
 
 # Install with development dependencies
@@ -320,8 +322,8 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🔗 Links
 
-- **GitHub**: https://github.com/z1-ya/weblog-hunter
-- **Issues**: https://github.com/z1-ya/weblog-hunter/issues
+- **GitHub**: https://github.com/shalbuzov/weblog-hunter
+- **Issues**: https://github.com/shalbuzov/weblog-hunter/issues
 
 ## 📈 Performance
 

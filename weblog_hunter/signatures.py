@@ -3,8 +3,7 @@ Attack signatures and detection patterns for weblog-hunter
 """
 
 import re
-from typing import List, Optional, Tuple
-
+from typing import List, Optional
 
 # SQL Injection patterns
 SQLI_PATTERNS = re.compile(
@@ -81,9 +80,7 @@ IDENTITY_HINTS = re.compile(
     r"(?i)(whoami|profile|account|user|users|customer|customers|admin|member)"
 )
 
-LOGIN_HINTS = re.compile(
-    r"(?i)(login|signin|auth|token|session|oauth|sso|authenticate)"
-)
+LOGIN_HINTS = re.compile(r"(?i)(login|signin|auth|token|session|oauth|sso|authenticate)")
 
 EMAIL_HINTS = re.compile(r"(?i)(email|mail|contact)")
 
@@ -93,9 +90,7 @@ API_HINTS = re.compile(r"(?i)(/api/|/rest/|/graphql|/v\d+/|\.json|\.xml)")
 BRUTE_FORCE_STATUS_CODES = {401, 403}
 
 # Credential stuffing - detecting patterns in usernames
-CREDENTIAL_STUFFING_PARAMS = re.compile(
-    r"(?i)(username|user|email|login|account)=([^&\s]+)"
-)
+CREDENTIAL_STUFFING_PARAMS = re.compile(r"(?i)(username|user|email|login|account)=([^&\s]+)")
 
 # Bot detection patterns
 BOT_USER_AGENTS = re.compile(
@@ -108,8 +103,7 @@ DDOS_INDICATORS = re.compile(r"(?i)(slowloris|rudy|ddos|flood)")
 
 # Data exfiltration - sensitive endpoints
 SENSITIVE_ENDPOINTS = re.compile(
-    r"(?i)(/export|/download|/backup|/dump|/database|/admin/users|"
-    r"/api/users|\.sql|\.db|\.bak)"
+    r"(?i)(/export|/download|/backup|/dump|/database|/admin/users|" r"/api/users|\.sql|\.db|\.bak)"
 )
 
 # Session hijacking indicators
@@ -118,23 +112,23 @@ SESSION_PARAMS = re.compile(r"(?i)(session|sessionid|sid|jsessionid|phpsessid)")
 
 class SignatureDetector:
     """Detects various attack signatures in URLs and user agents"""
-    
+
     @staticmethod
     def detect_attacks(url: str) -> List[str]:
         """
         Detect attack signatures in a URL
-        
+
         Args:
             url: The URL to analyze (can be URL-encoded)
-            
+
         Returns:
             List of detected attack types
         """
         from urllib.parse import unquote
-        
+
         decoded = unquote(url)
         detected = []
-        
+
         if SQLI_PATTERNS.search(decoded):
             detected.append("SQLi")
         if TRAVERSAL_PATTERNS.search(decoded):
@@ -153,52 +147,52 @@ class SignatureDetector:
             detected.append("LDAP Injection")
         if NOSQL_PATTERNS.search(decoded):
             detected.append("NoSQL Injection")
-            
+
         return detected
-    
+
     @staticmethod
     def detect_tool(user_agent: str) -> Optional[str]:
         """
         Detect scanning/attack tools from User-Agent
-        
+
         Args:
             user_agent: The User-Agent string
-            
+
         Returns:
             Tool name if detected, None otherwise
         """
         if not user_agent:
             return None
-            
+
         for name, pattern in SCANNER_PATTERNS:
             if pattern.search(user_agent):
                 return name
-        
+
         # Classify as browser if it looks like one
         if any(browser in user_agent for browser in ["Mozilla/", "Chrome/", "Safari/", "Firefox/"]):
             return "browser"
-        
+
         # Check for bots
         if BOT_USER_AGENTS.search(user_agent):
             return "bot"
-            
+
         return None
-    
+
     @staticmethod
     def is_bot_user_agent(user_agent: str) -> bool:
         """Check if user agent appears to be a bot"""
         return bool(BOT_USER_AGENTS.search(user_agent))
-    
+
     @staticmethod
     def is_sensitive_endpoint(path: str) -> bool:
         """Check if endpoint deals with sensitive data"""
         return bool(SENSITIVE_ENDPOINTS.search(path))
-    
+
     @staticmethod
     def has_session_parameter(url: str) -> bool:
         """Check if URL contains session parameters"""
         return bool(SESSION_PARAMS.search(url))
-    
+
     @staticmethod
     def is_api_endpoint(path: str) -> bool:
         """Check if endpoint is an API endpoint"""

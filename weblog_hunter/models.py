@@ -4,13 +4,13 @@ Data models for weblog-hunter with type hints
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import List, Optional, Dict, Any, Counter as CounterType
+from typing import Any, Dict, List, Optional
 
 
 @dataclass
 class LogEntry:
     """Represents a single parsed log entry"""
-    
+
     ip: str
     timestamp: Optional[datetime]
     method: str
@@ -23,7 +23,7 @@ class LogEntry:
     referer: Optional[str] = None
     tool: Optional[str] = None
     abnormal: List[str] = field(default_factory=list)
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization"""
         return {
@@ -45,7 +45,7 @@ class LogEntry:
 @dataclass
 class IPAnalysis:
     """Analysis results for a single IP address"""
-    
+
     ip: str
     request_count: int
     score: float
@@ -57,7 +57,7 @@ class IPAnalysis:
     top_paths: List[tuple]
     abnormal_examples: List[LogEntry]
     tools_used: List[str] = field(default_factory=list)
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization"""
         return {
@@ -78,14 +78,14 @@ class IPAnalysis:
 @dataclass
 class EndpointVulnerability:
     """Represents a potentially vulnerable endpoint"""
-    
+
     endpoint: str
     score: float
     sqli_hits: int
     sqli_500: int
     unique_payloads: int
     examples: List[str]
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization"""
         return {
@@ -101,7 +101,7 @@ class EndpointVulnerability:
 @dataclass
 class AnalysisResult:
     """Complete analysis results"""
-    
+
     files_read: int
     parsed_events: int
     parse_failures: int
@@ -110,7 +110,7 @@ class AnalysisResult:
     vulnerable_endpoints: List[EndpointVulnerability]
     inferred_scrape_section: Optional[str]
     all_events: List[LogEntry] = field(default_factory=list)
-    
+
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization"""
         return {
