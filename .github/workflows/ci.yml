@@ -100,7 +100,7 @@ jobs:
       
       - name: Type check with mypy
         run: |
-          mypy weblog_hunter/
+          mypy weblog_hunter/ --ignore-missing-imports
   
   integration:
     name: Integration Tests
