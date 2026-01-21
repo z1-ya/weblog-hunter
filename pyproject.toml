@@ -80,6 +80,8 @@ ignore = [
 "__init__.py" = ["F401"]
 
 [tool.mypy]
+# Note: mypy requires Python 3.9+ to run, but we can still type-check code targeting 3.8+
+# The project supports Python 3.8+, but mypy itself requires 3.9+ to execute
 python_version = "3.9"
 warn_return_any = true
 warn_unused_configs = true
